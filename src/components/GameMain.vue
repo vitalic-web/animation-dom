@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import KenoAnimation from '../animations/KenoAnimation.vue';
+import BallsAnimation from '../animations/BallsAnimation.vue';
 </script>
 
 <template>
   <div class="game-main">
     <div class="game-main__header">
       <KenoAnimation class="game-main__header-animation" />
+      <BallsAnimation />
     </div>
   </div>
 </template>
