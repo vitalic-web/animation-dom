@@ -70,7 +70,6 @@ onMounted(() => {
 .ball-animation {
   position: relative;
   width: 100%;
-  height: 100px;
   overflow: hidden;
 
   &__item {

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import KenoAnimation from '../animations/KenoAnimation.vue';
 import BallsAnimation from '../animations/BallsAnimation.vue';
+import TimerBarAnimation from '../animations/TimerBarAnimation.vue';
 </script>
 
 <template>
@@ -15,6 +16,7 @@ import BallsAnimation from '../animations/BallsAnimation.vue';
         </div>
         <BallsAnimation />
       </div>
+      <TimerBarAnimation class="game-main__header-timer" />
     </div>
   </div>
 </template>
@@ -31,6 +33,7 @@ import BallsAnimation from '../animations/BallsAnimation.vue';
     width: 100%;
     height: 90px;
     display: flex;
+    flex-direction: column;
     background-image: url('../assets/pictures/header.png');
     background-size: cover;
     background-position: center;
@@ -51,6 +54,10 @@ import BallsAnimation from '../animations/BallsAnimation.vue';
   &__header-title-text {
     font-size: 15px;
     color: #FFA500;
+  }
+
+  &__header-timer {
+    margin-top: 8px;
   }
 
   p {
