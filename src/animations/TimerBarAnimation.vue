@@ -13,37 +13,39 @@ const timeText = ref<HTMLSpanElement | null>(null);
 
 const formattedTime = computed(() => formatTime(remainingTime.value));
 
-const applyTextGradient = (element: HTMLElement | null, barWidth: number, elementStartX: number, elementWidth: number) => {
-  if (barWidth > elementStartX) {
-    const overlapWidth = Math.min(barWidth - elementStartX, elementWidth);
-    const overlapPercentage = overlapWidth / elementWidth;
+const applyTextGradient = (element: HTMLElement | null, barWidth: number, progressBarRect: DOMRect) => {
+  if (element) {
+    const elementRect = element.getBoundingClientRect();
+    const elementStartX = elementRect.left - progressBarRect.left; // Вычисляем позицию относительно полоски
+    const elementWidth = elementRect.width;
 
-    element!.style.backgroundImage = `linear-gradient(
-      to right,
-      #000 ${overlapPercentage * 100}%,
-      #fff ${overlapPercentage * 100}%
-    )`;
-    element!.style.backgroundClip = 'text';
-    element!.style.backgroundClip = 'text';
-    element!.style.color = 'transparent';
-  } else {
-    element!.style.color = '#fff';
-    element!.style.backgroundImage = '';
+    if (barWidth > elementStartX) {
+      const overlapWidth = Math.min(barWidth - elementStartX, elementWidth);
+      const overlapPercentage = overlapWidth / elementWidth;
+
+      element.style.backgroundImage = `linear-gradient(
+        to right,
+        #000 ${overlapPercentage * 100}%,
+        #fff ${overlapPercentage * 100}%
+      )`;
+      element.style.backgroundClip = 'text';
+      element.style.color = 'transparent';
+    } else {
+      element.style.color = '#fff';
+      element.style.backgroundImage = '';
+    }
   }
 };
 
 const updateTextColor = () => {
   const barWidth = progressBar.value?.offsetWidth || 0;
+  const progressBarRect = progressBar.value?.getBoundingClientRect() || new DOMRect();
 
   // Окрашиваем текст
-  const textStartX = progressText.value?.offsetLeft || 0;
-  const textWidth = progressText.value?.offsetWidth || 0;
-  applyTextGradient(progressText.value, barWidth, textStartX, textWidth);
+  applyTextGradient(progressText.value, barWidth, progressBarRect);
 
   // Окрашиваем таймер
-  const timeStartX = timeText.value?.offsetLeft || 0;
-  const timeWidth = timeText.value?.offsetWidth || 0;
-  applyTextGradient(timeText.value, barWidth, timeStartX, timeWidth);
+  applyTextGradient(timeText.value, barWidth, progressBarRect);
 };
 
 // Анимация прогресс-бара
