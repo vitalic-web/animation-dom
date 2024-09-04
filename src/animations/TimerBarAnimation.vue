@@ -68,7 +68,7 @@ const animateProgressLine = () => {
       // Окрашиваем полоску в красный и убираем текст
       if (progressBar.value && progressText.value) {
         progressBar.value.style.backgroundColor = '#bf362d';
-        // progressText.value.style.visibility = 'hidden';
+        progressText.value.style.visibility = 'hidden';
       }
     },
   });
