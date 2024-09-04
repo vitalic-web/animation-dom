@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Open Sans, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -64,7 +64,7 @@ button:focus-visible {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('./assets/bg-main.jpg');
+  background-image: url('./assets/pictures/bg-main.jpg');
   background-size: cover;
   background-position: center;
 }

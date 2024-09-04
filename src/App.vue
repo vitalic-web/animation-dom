@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import GameWindow from './components/GameWindow.vue';
+import Game from './components/Game.vue';
 </script>
 
 <template>
-  <GameWindow />
+  <Game />
 </template>
 
 <style scoped>
