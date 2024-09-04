@@ -6,8 +6,15 @@ import BallsAnimation from '../animations/BallsAnimation.vue';
 <template>
   <div class="game-main">
     <div class="game-main__header">
-      <KenoAnimation class="game-main__header-animation" />
-      <BallsAnimation />
+      <div class="game-main__header-balls">
+        <div class="game-main__header-title-container">
+          <KenoAnimation />
+          <p class="game-main__header-title-text">
+            #799813
+          </p>
+        </div>
+        <BallsAnimation />
+      </div>
     </div>
   </div>
 </template>
@@ -29,8 +36,25 @@ import BallsAnimation from '../animations/BallsAnimation.vue';
     background-position: center;
   }
 
-  &__header-animation {
+  &__header-balls {
+    width: 100%;
+    display: flex;
+  }
+
+  &__header-title-container {
     margin: 8px 0 0 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__header-title-text {
+    font-size: 15px;
+    color: #FFA500;
+  }
+
+  p {
+    margin: 0;
   }
 }
 </style>
