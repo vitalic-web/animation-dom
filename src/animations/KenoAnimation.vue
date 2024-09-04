@@ -13,9 +13,14 @@ const kenoLetters = ref([
 
 const check4minImg = (name: string): boolean => name === '4min';
 
-onMounted(() => {
-  const letters = document.querySelectorAll('.keno-animation__letter') as NodeListOf<HTMLElement>;
+const letterRefs = ref<(HTMLElement | null)[]>([]);
 
+// присваивание рефов элементам, нужно чтобы присвоились только после загрузки самих элементов
+const setLetterRef = (el: HTMLElement | null, index: number) => {
+  letterRefs.value[index] = el;
+};
+
+onMounted(() => {
   gsap.to(kenoLetters.value, {
     duration: 1.0,
     rotationY: 180,
@@ -23,9 +28,11 @@ onMounted(() => {
     ease: "power2.inOut",
     stagger: 0.2,
     onUpdate: () => {
-      letters.forEach((letter, i) => {
-        const rotation = kenoLetters.value[i].rotationY;
-        letter.style.transform = `rotateY(${rotation}deg) scaleX(${rotation > 90 && rotation < 270 ? -1 : 1})`;
+      letterRefs.value.forEach((letter, i) => {
+        if (letter) {
+          const rotation = kenoLetters.value[i].rotationY;
+          letter.style.transform = `rotateY(${rotation}deg) scaleX(${rotation > 90 && rotation < 270 ? -1 : 1})`;
+        }
       });
     }
   });
@@ -35,15 +42,16 @@ onMounted(() => {
 <template>
   <div class="keno-animation">
     <img
-      :class="[
-        'keno-animation__letter',
-        {'keno-animation__letter-4min': check4minImg(image.name)}
-      ]"
       v-for="(image, index) in kenoLetters"
+      :ref="el => setLetterRef(el as HTMLElement, index)"
+      :key="index + 'k'"
       :src="image.img"
       :alt="image.name"
-      :key="index + 'k'"
-    >
+      :class="[
+        'keno-animation__letter',
+        { 'keno-animation__letter-4min': check4minImg(image.name) }
+      ]"
+    />
   </div>
 </template>
 

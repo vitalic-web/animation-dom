@@ -49,7 +49,6 @@ import ControlCloseIcon from '../assets/icons/controlCloseIcon.svg';
 
     &-text {
       font-size: 14px;
-      font-weight: 300;
     }
 
     &-icon {
