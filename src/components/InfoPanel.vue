@@ -8,6 +8,13 @@ import { getImgUrl } from '../utils';
       <img class="info-panel__jackpot-img" :src="getImgUrl('JackPot.png')" alt="JackPot">
       <p class="info-panel__jackpot-sum">8 380</p>
     </div>
+    <div class="info-panel__green-squares">
+      <div
+        v-for="(_item, index) in 5"
+        class="info-panel__green-squares-item"
+        :key="index + 'gs'"
+      />
+    </div>
   </div>
 </template>
 
@@ -31,6 +38,17 @@ import { getImgUrl } from '../utils';
       font-size: 27px;
       font-weight: 400;
       line-height: 1;
+    }
+  }
+
+  &__green-squares {
+    display: flex;
+    gap: 1.5px;
+
+    &-item {
+      width: 5.5px;
+      height: 2px;
+      background: #00ff00;
     }
   }
 }
