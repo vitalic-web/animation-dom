@@ -73,8 +73,4 @@ import ControlCloseIcon from '../assets/icons/controlCloseIcon.svg';
     }
   }
 }
-
-p {
-  margin: 0;
-}
 </style>

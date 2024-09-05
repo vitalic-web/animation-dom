@@ -4,6 +4,7 @@ import BallsAnimation from '../animations/BallsAnimation.vue';
 import TimerBarAnimation from '../animations/TimerBarAnimation.vue';
 import CardsLIst from './CardsList.vue';
 import Tabs from './Tabs.vue';
+import Info from './InfoPanel.vue';
 import { storeToRefs } from 'pinia';
 import { useTabsStore } from '../stores/tabsStore';
 
@@ -39,6 +40,7 @@ const { selectedTabName } = storeToRefs(useTabsStore());
         СТАТИСТ
       </div>
       <Tabs class="game-main__field-tabs" />
+      <Info class="game-main__field-info" />
     </div>
   </div>
 </template>
@@ -98,8 +100,10 @@ const { selectedTabName } = storeToRefs(useTabsStore());
     top: 21px;
   }
 
-  p {
-    margin: 0;
+  &__field-info {
+    position: absolute;
+    left: 584px;
+    top: 6px;
   }
 }
 </style>
