@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { TabsState } from '../types';
+import { Tab, TabsState } from '../types';
 
 export const useTabsStore = defineStore('tabs', {
   state: (): TabsState => ({
@@ -22,6 +22,12 @@ export const useTabsStore = defineStore('tabs', {
       },
     ],
   }),
+  getters: {
+    selectedTabName: (state): string | null => {
+      const selectedTab = state.tabs.find(tab => tab.isPressed);
+      return selectedTab ? selectedTab.name : null;
+    },
+  },
   actions: {
     selectTab(tabName: string) {
       this.tabs.forEach(item => {

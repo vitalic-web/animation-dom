@@ -4,6 +4,10 @@ import BallsAnimation from '../animations/BallsAnimation.vue';
 import TimerBarAnimation from '../animations/TimerBarAnimation.vue';
 import CardsLIst from './CardsList.vue';
 import Tabs from './Tabs.vue';
+import { storeToRefs } from 'pinia';
+import { useTabsStore } from '../stores/tabsStore';
+
+const { selectedTabName } = storeToRefs(useTabsStore());
 </script>
 
 <template>
@@ -21,7 +25,19 @@ import Tabs from './Tabs.vue';
       <TimerBarAnimation class="game-main__header-timer" />
     </div>
     <div class="game-main__field">
-      <CardsLIst class="game-main__field-cards" />
+      <CardsLIst
+        v-if="selectedTabName === 'ИГРА'"
+        class="game-main__field-cards"
+      />
+      <div v-if="selectedTabName === 'ВИДЕО'" style="color: white;">
+        ВИДЕО
+      </div>
+      <div v-if="selectedTabName === 'ИСТОРИЯ'" style="color: white;">
+        ИСТОРИЯ
+      </div>
+      <div v-if="selectedTabName === 'СТАТИСТ'" style="color: white;">
+        СТАТИСТ
+      </div>
       <Tabs class="game-main__field-tabs" />
     </div>
   </div>
