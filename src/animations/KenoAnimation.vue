@@ -43,7 +43,6 @@ onMounted(() => {
   <div class="keno-animation">
     <img
       v-for="(image, index) in kenoLetters"
-      :ref="el => setLetterRef(el as HTMLElement, index)"
       :key="index + 'k'"
       :src="image.img"
       :alt="image.name"
@@ -51,6 +50,7 @@ onMounted(() => {
         'keno-animation__letter',
         { 'keno-animation__letter-4min': check4minImg(image.name) }
       ]"
+      ref="letterRefs"
     />
   </div>
 </template>
