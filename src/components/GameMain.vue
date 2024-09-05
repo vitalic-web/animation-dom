@@ -96,13 +96,13 @@ const { selectedTabName } = storeToRefs(useTabsStore());
 
   &__field-tabs {
     position: absolute;
-    left: 500px;
+    left: 514px;
     top: 21px;
   }
 
   &__field-info {
     position: absolute;
-    left: 584px;
+    left: 596px;
     top: 6px;
   }
 }

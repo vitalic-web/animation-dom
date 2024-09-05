@@ -94,7 +94,7 @@ watch(activeCardIndex, (newIndex, oldIndex) => {
 <style lang="scss" scoped>
 .card-list {
   display: grid;
-  grid-template-columns: repeat(10, 50px);
+  grid-template-columns: repeat(10, 52px);
   gap: 1px;
 }
 
@@ -107,7 +107,7 @@ watch(activeCardIndex, (newIndex, oldIndex) => {
   background-position: center;
   font-size: 20px;
   color: #fff;
-  width: 50px;
+  width: 52px;
   height: 40px;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   cursor: pointer;
