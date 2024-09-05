@@ -5,3 +5,12 @@ export interface IBall {
   number: number;
   rotation: number;
 }
+
+export interface Tab {
+  name: string;
+  isPressed: boolean;
+}
+
+export interface TabsState {
+  tabs: Tab[];
+}

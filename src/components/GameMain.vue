@@ -22,7 +22,7 @@ import Tabs from './Tabs.vue';
     </div>
     <div class="game-main__field">
       <CardsLIst class="game-main__field-cards" />
-      <Tabs />
+      <Tabs class="game-main__field-tabs" />
     </div>
   </div>
 </template>
@@ -69,10 +69,17 @@ import Tabs from './Tabs.vue';
   &__field {
     display: flex;
     margin: -4px 0 0 25px;
+    position: relative;
   }
 
   &__field-cards {
     margin-right: 5px;
+  }
+
+  &__field-tabs {
+    position: absolute;
+    left: 500px;
+    top: 21px;
   }
 
   p {

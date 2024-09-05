@@ -1,19 +1,20 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useTabsStore } from '../stores/tabsStore';
 
-const tabs = ['ИГРА', 'ВИДЕО', 'ИСТОРИЯ', 'СТАТИСТ'];
-const cardRefs = ref<Array<HTMLElement | null>>([]);
+const { tabs } = storeToRefs(useTabsStore());
+const { selectTab } = useTabsStore();
 </script>
 
 <template>
   <div class="tabs">
     <div
-      class="tabs__item"
+      :class="['tabs__item', { 'tabs__item_pressed': tab.isPressed }]"
       v-for="(tab, index) in tabs"
       :key="index + 't'"
-      ref="cardRefs"
+      @click="selectTab(tab.name)"
     >
-      {{ tab }}
+      {{ tab.name }}
     </div>
   </div>
 </template>
@@ -23,8 +24,6 @@ const cardRefs = ref<Array<HTMLElement | null>>([]);
   display: flex;
   flex-direction: column;
   gap: 45px;
-  margin-left: -17px;
-  margin-top: 20px;
   width: 38px;
 
   &__item {
@@ -47,6 +46,20 @@ const cardRefs = ref<Array<HTMLElement | null>>([]);
       background: url('/src/assets/pictures/tab-selected.png');
       background-size: cover;
       background-position: center;
+    }
+
+    &_pressed {
+      background: url('/src/assets/pictures/tab-pressed.png');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+
+      &:hover {
+        cursor: pointer;
+        background: url('/src/assets/pictures//tab-pressed.png');
+        background-size: cover;
+        background-position: center;
+      }
     }
   }
 }
