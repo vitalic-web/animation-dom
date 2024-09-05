@@ -2,7 +2,8 @@
 import KenoAnimation from '../animations/KenoAnimation.vue';
 import BallsAnimation from '../animations/BallsAnimation.vue';
 import TimerBarAnimation from '../animations/TimerBarAnimation.vue';
-import CardsLIst from '../statics/CardsList.vue';
+import CardsLIst from './CardsList.vue';
+import Tabs from './Tabs.vue';
 </script>
 
 <template>
@@ -21,6 +22,7 @@ import CardsLIst from '../statics/CardsList.vue';
     </div>
     <div class="game-main__field">
       <CardsLIst class="game-main__field-cards" />
+      <Tabs />
     </div>
   </div>
 </template>
@@ -66,10 +68,11 @@ import CardsLIst from '../statics/CardsList.vue';
 
   &__field {
     display: flex;
+    margin: -4px 0 0 25px;
   }
 
   &__field-cards {
-    margin: -4px 0 0 25px;
+    margin-right: 5px;
   }
 
   p {

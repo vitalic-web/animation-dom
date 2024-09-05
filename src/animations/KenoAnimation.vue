@@ -15,11 +15,6 @@ const check4minImg = (name: string): boolean => name === '4min';
 
 const letterRefs = ref<(HTMLElement | null)[]>([]);
 
-// присваивание рефов элементам, нужно чтобы присвоились только после загрузки самих элементов
-const setLetterRef = (el: HTMLElement | null, index: number) => {
-  letterRefs.value[index] = el;
-};
-
 onMounted(() => {
   gsap.to(kenoLetters.value, {
     duration: 1.0,

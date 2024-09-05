@@ -81,7 +81,7 @@ watch(activeCardIndex, (newIndex, oldIndex) => {
   <div class="card-list">
     <div
       v-for="(card, index) in cards"
-      :key="card"
+      :key="card + 'c'"
       class="card-item"
       ref="cardRefs"
       @click="handleCardClick(index)"
