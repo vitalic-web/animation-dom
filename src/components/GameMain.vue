@@ -2,6 +2,7 @@
 import KenoAnimation from '../animations/KenoAnimation.vue';
 import BallsAnimation from '../animations/BallsAnimation.vue';
 import TimerBarAnimation from '../animations/TimerBarAnimation.vue';
+import CardsLIst from '../statics/CardsList.vue';
 </script>
 
 <template>
@@ -17,6 +18,9 @@ import TimerBarAnimation from '../animations/TimerBarAnimation.vue';
         <BallsAnimation />
       </div>
       <TimerBarAnimation class="game-main__header-timer" />
+    </div>
+    <div class="game-main__field">
+      <CardsLIst class="game-main__field-cards" />
     </div>
   </div>
 </template>
@@ -58,6 +62,14 @@ import TimerBarAnimation from '../animations/TimerBarAnimation.vue';
 
   &__header-timer {
     margin-top: 8px;
+  }
+
+  &__field {
+    display: flex;
+  }
+
+  &__field-cards {
+    margin: -4px 0 0 25px;
   }
 
   p {
