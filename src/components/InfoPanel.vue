@@ -23,6 +23,10 @@ const items = [
     value: 'value5',
   },
 ];
+
+const expandTable = () => {
+  console.log('expandTable');
+};
 </script>
 
 <template>
@@ -42,12 +46,14 @@ const items = [
       <div class="info-panel__table-header" colspan="2">
         <img class="info-panel__table-img" :src="getImgUrl('table-header.png')" alt="Header Image">
         <p class="info-panel__table-title">ИСТОРИЯ</p>
+        <img class="info-panel__table-arrow" :src="getImgUrl('expand.png')" alt="Expand Image">
+        <div class="info-panel__table-click-area" @click="expandTable" />
       </div>
       <table class="info-panel__table-inner">
         <thead>
           <tr>
             <th>#</th>
-            <th>Шары</th>
+            <th class="info-panel__table-header-text">Шары</th>
           </tr>
         </thead>
         <tbody>
@@ -60,7 +66,7 @@ const items = [
             }"
           >
             <td>{{ item.name }}</td>
-            <td>{{ item.value }}</td>
+            <td class="info-panel__table-row-value">{{ item.value }}</td>
           </tr>
         </tbody>
       </table>
@@ -124,18 +130,45 @@ const items = [
       border-top-right-radius: 4px;
     }
 
+    &-header-text {
+      text-align: start;
+      padding-left: 6px;
+    }
+
+    &-click-area {
+      width: 279px;
+      height: 21px;
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
     &-img {
       width: 100%;
       height: auto;
       display: block;
     }
 
+    &-arrow {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      width: 5px;
+    }
+
     &-title {
       position: absolute;
-      top: 0;
+      top: 2px;
       left: 9px;
       color: #000;
       margin: 0;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0px;
     }
 
     &-odd-row {
@@ -146,6 +179,11 @@ const items = [
     &-even-row {
       background: #c8e6d7;
       opacity: 0.7;
+    }
+
+    &-row-value {
+      text-align: start;
+      padding-left: 6px;
     }
   }
 }
@@ -160,6 +198,7 @@ thead th {
   padding: 0;
   margin: 0;
   border: none;
+  color: #484747;
 }
 
 tbody td {
@@ -182,5 +221,9 @@ td, th {
   height: 12px;
   text-align: center;
   vertical-align: middle;
+  font-size: 10px;
+  height: 16px;
+  font-weight: 400;
+  color: #000;
 }
 </style>
