@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { getImgUrl } from '../utils';
+import { IHistory, ICoupon } from '../types';
 
-const items = Array.from({ length: 5 }, (_, i) => {
+const items: IHistory[] = Array.from({ length: 5 }, (_, i) => {
   return { number: `number${i + 1}`, balls: `balls${i + 1}` }
 });
 
-const items2 = Array.from({ length: 6 }, (_, i) => {
+const items2: ICoupon[] = Array.from({ length: 6 }, (_, i) => {
   return { 
     balls: `balls${i + 1}`,
     bet: `bet${i + 1}`,
@@ -15,12 +16,20 @@ const items2 = Array.from({ length: 6 }, (_, i) => {
   }
 });
 
-console.log('items2', items2);
-
 const isTableExpanded = ref(true);
+const isTable2Expanded = ref(true);
+const isVisible = ref(true);
 
 const toggleTable = () => {
   isTableExpanded.value = !isTableExpanded.value;
+};
+
+const toggleTable2 = () => {
+  console.log('toggleTable2');
+};
+
+const toggleVisibility = () => {
+  isVisible.value = !isVisible.value;
 };
 </script>
 
@@ -37,11 +46,19 @@ const toggleTable = () => {
         :key="index + 'gs'"
       />
     </div>
+
     <div class="info-panel__table">
       <div class="info-panel__table-header" colspan="2">
         <img class="info-panel__table-img" :src="getImgUrl('table-header.png')" alt="Header Image">
         <p class="info-panel__table-title">ИСТОРИЯ</p>
-        <img class="info-panel__table-arrow" :src="getImgUrl('expand.png')" alt="Expand Image">
+        <img
+          :class="[
+            'info-panel__table-arrow',
+            { 'info-panel__table-arrow_expanded': isTableExpanded }
+          ]"
+          :src="getImgUrl('expand.png')"
+          alt="Arrow Image"
+        >
         <div class="info-panel__table-click-area" @click="toggleTable" />
       </div>
       <div class="info-panel__table-inner">
@@ -63,6 +80,55 @@ const toggleTable = () => {
             >
               <td>{{ item.number }}</td>
               <td class="info-panel__table-row-value">{{ item.balls }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="info-panel__table">
+      <div class="info-panel__table-header" colspan="2">
+        <img class="info-panel__table-img" :src="getImgUrl('table-header.png')" alt="Header Image">
+        <p class="info-panel__table-title">КУПОН</p>
+        <img
+          :class="[
+            'info-panel__table-arrow',
+            { 'info-panel__table-arrow_expanded': isTable2Expanded }
+          ]"
+          :src="getImgUrl('expand.png')"
+          alt="Arrow2 Image"
+        >
+        <div class="info-panel__table-click-area" @click="toggleTable2" />
+        <img
+          class="info-panel__table-eye"
+          :src="getImgUrl(isVisible ? 'eye-icon-min.png' : 'eye-closed-icon-min.png')"
+          alt="Eye Icon"
+          @click="toggleVisibility"
+        >
+      </div>
+      <div class="info-panel__table-inner">
+        <table>
+          <thead>
+            <tr>
+              <th class="info-panel__table-header-text">Шары</th>
+              <th>Ставка</th>
+              <th>Х</th>
+              <th>Выигрыш</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(item2, index2) in (isTable2Expanded ? items2 : [items2[0]])"
+              :key="index2 + 'tr2'"
+              :class="{ 
+                'info-panel__table-odd-row': index2 % 2 === 0,
+                'info-panel__table-even-row': index2 % 2 !== 0,
+              }"
+            >
+              <td>{{ item2.balls }}</td>
+              <td class="info-panel__table-row-value">{{ item2.bet }}</td>
+              <td> {{ item2.x }}</td>
+              <td>{{ item2.winnings }}</td>
             </tr>
           </tbody>
         </table>
@@ -107,17 +173,17 @@ const toggleTable = () => {
 
   &__table {
     display: flex;
+    flex-direction: column;
     margin-top: 8px;
     position: relative;
+    border-radius: 4px;
+    overflow: hidden;
 
     &-inner {
-      position: absolute;
-      left: 0;
-      top: 22px;
-      width: 100%;
-      border-bottom-left-radius: 4px;
-      border-bottom-right-radius: 4px;
       overflow: hidden;
+      margin-top: -16px;
+      z-index: 1;
+      width: 100%;
     }
 
     &-header {
@@ -127,8 +193,6 @@ const toggleTable = () => {
       margin: 0;
       border: none;
       background: #fff;
-      border-top-left-radius: 4px;
-      border-top-right-radius: 4px;
     }
 
     &-header-text {
@@ -159,6 +223,21 @@ const toggleTable = () => {
       top: 5px;
       right: 10px;
       width: 5px;
+
+      &_expanded {
+        transform: rotate(90deg);
+      }
+    }
+
+    &-eye {
+      position: absolute;
+      top: 4px;
+      right: 101px;
+      width: 21px;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
 
     &-title {

@@ -14,3 +14,15 @@ export interface Tab {
 export interface TabsState {
   tabs: Tab[];
 }
+
+export interface IHistory {
+  number: string;
+  balls: string;
+}
+
+export interface ICoupon {
+  balls: string;
+  bet: string;
+  x: string;
+  winnings: string;
+}
