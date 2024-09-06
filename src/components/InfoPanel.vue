@@ -2,28 +2,20 @@
 import { ref } from 'vue';
 import { getImgUrl } from '../utils';
 
-const items = [
-  {
-    name: 'name1',
-    value: 'value1',
-  },
-  {
-    name: 'name2',
-    value: 'value2',
-  },
-  {
-    name: 'name3',
-    value: 'value3',
-  },
-  {
-    name: 'name4',
-    value: 'value4',
-  },
-  {
-    name: 'name5',
-    value: 'value5',
-  },
-];
+const items = Array.from({ length: 5 }, (_, i) => {
+  return { number: `number${i + 1}`, balls: `balls${i + 1}` }
+});
+
+const items2 = Array.from({ length: 6 }, (_, i) => {
+  return { 
+    balls: `balls${i + 1}`,
+    bet: `bet${i + 1}`,
+    x: `x${i + 1}`,
+    winnings: `winnings${i + 1}`,
+  }
+});
+
+console.log('items2', items2);
 
 const isTableExpanded = ref(true);
 
@@ -52,27 +44,29 @@ const toggleTable = () => {
         <img class="info-panel__table-arrow" :src="getImgUrl('expand.png')" alt="Expand Image">
         <div class="info-panel__table-click-area" @click="toggleTable" />
       </div>
-      <table class="info-panel__table-inner">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th class="info-panel__table-header-text">Шары</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="(item, index) in (isTableExpanded ? items : [items[0]])"
-            :key="index + 'tr'"
-            :class="{ 
-              'info-panel__table-odd-row': index % 2 === 0,
-              'info-panel__table-even-row': index % 2 !== 0,
-            }"
-          >
-            <td>{{ item.name }}</td>
-            <td class="info-panel__table-row-value">{{ item.value }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="info-panel__table-inner">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th class="info-panel__table-header-text">Шары</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(item, index) in (isTableExpanded ? items : [items[0]])"
+              :key="index + 'tr'"
+              :class="{ 
+                'info-panel__table-odd-row': index % 2 === 0,
+                'info-panel__table-even-row': index % 2 !== 0,
+              }"
+            >
+              <td>{{ item.number }}</td>
+              <td class="info-panel__table-row-value">{{ item.balls }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -120,6 +114,10 @@ const toggleTable = () => {
       position: absolute;
       left: 0;
       top: 22px;
+      width: 100%;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+      overflow: hidden;
     }
 
     &-header {
