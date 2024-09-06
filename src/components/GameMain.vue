@@ -9,8 +9,30 @@ import InfoPanel from './InfoPanel.vue';
 import { storeToRefs } from 'pinia';
 import { useTabsStore } from '../stores/tabsStore';
 import { getImgUrl } from '../utils';
+import { ref, watch } from 'vue';
+import { gsap } from 'gsap';
 
 const { selectedTabName } = storeToRefs(useTabsStore());
+const animatedContentRef = ref(null);
+const currentTab = ref(selectedTabName.value);
+
+watch(selectedTabName, (newTab, oldTab) => {
+  if (newTab !== oldTab) {
+    const container = animatedContentRef.value;
+
+    gsap.to(container, {
+      rotateX: 90,
+      duration: 0.1,
+      onComplete: () => {
+        // Меняем активный таб только после завершения первой анимации
+        currentTab.value = newTab;
+
+        // Поворачиваем новый контент обратно
+        gsap.fromTo(container, { rotateX: -90 }, { rotateX: 0, duration: 0.1 });
+      }
+    });
+  }
+});
 </script>
 
 <template>
@@ -19,32 +41,32 @@ const { selectedTabName } = storeToRefs(useTabsStore());
       <div class="game-main__header-balls">
         <div class="game-main__header-title-container">
           <KenoAnimation />
-          <p class="game-main__header-title-text">
-            #799813
-          </p>
+          <p class="game-main__header-title-text">#799813</p>
         </div>
         <BallsAnimation />
       </div>
       <TimerBarAnimation class="game-main__header-timer" />
     </div>
     <div class="game-main__field">
-      <CardsLIst
-        v-if="selectedTabName === 'ИГРА'"
-        class="game-main__field-cards"
-      />
-      <div v-if="selectedTabName === 'ВИДЕО'" class="game-main__video-tab">
-        <img
-          class="game-main__video-tab-img"
-          :src="getImgUrl('unavailable.png')"
-          alt="Unavailable Image"
+      <div class="game-main__field-content" ref="animatedContentRef">
+        <CardsLIst
+          v-if="currentTab === 'ИГРА'"
+          class="game-main__field-cards"
         />
-      </div>
-      <div v-if="selectedTabName === 'ИСТОРИЯ'" style="color: white;">
-        ИСТОРИЯ
-      </div>
-      <div v-if="selectedTabName === 'СТАТИСТ'" class="game-main__statistics-tab">
-        <p class="game-main__statistics-tab-title">Рейтинг выпадения шаров за последние 100 раундов</p>
-        <Statistics />
+        <div v-if="currentTab === 'ВИДЕО'" class="game-main__video-tab">
+          <img
+            class="game-main__video-tab-img"
+            :src="getImgUrl('unavailable.png')"
+            alt="Unavailable Image"
+          />
+        </div>
+        <div v-if="currentTab === 'ИСТОРИЯ'" style="color: white;">
+          <Test />
+        </div>
+        <div v-if="currentTab === 'СТАТИСТ'" class="game-main__statistics-tab">
+          <p class="game-main__statistics-tab-title">Рейтинг выпадения шаров за последние 100 раундов</p>
+          <Statistics />
+        </div>
       </div>
       <Tabs class="game-main__field-tabs" />
       <InfoPanel class="game-main__field-info" />
@@ -97,6 +119,16 @@ const { selectedTabName } = storeToRefs(useTabsStore());
     position: relative;
     align-items: center;
     height: 327px;
+    perspective: 1000px; /* Перспектива для 3D-эффекта */
+  }
+
+  &__field-content {
+    width: 529px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
   }
 
   &__field-cards {
