@@ -4,9 +4,10 @@ import BallsAnimation from '../animations/BallsAnimation.vue';
 import TimerBarAnimation from '../animations/TimerBarAnimation.vue';
 import CardsLIst from './CardsList.vue';
 import Tabs from './Tabs.vue';
-import Info from './InfoPanel.vue';
+import InfoPanel from './InfoPanel.vue';
 import { storeToRefs } from 'pinia';
 import { useTabsStore } from '../stores/tabsStore';
+import { getImgUrl } from '../utils';
 
 const { selectedTabName } = storeToRefs(useTabsStore());
 </script>
@@ -30,8 +31,12 @@ const { selectedTabName } = storeToRefs(useTabsStore());
         v-if="selectedTabName === 'ИГРА'"
         class="game-main__field-cards"
       />
-      <div v-if="selectedTabName === 'ВИДЕО'" style="color: white;">
-        ВИДЕО
+      <div v-if="selectedTabName === 'ВИДЕО'" class="game-main__video-tab">
+        <img
+          class="game-main__video-tab-img"
+          :src="getImgUrl('unavailable.png')"
+          alt="Unavailable Image"
+        />
       </div>
       <div v-if="selectedTabName === 'ИСТОРИЯ'" style="color: white;">
         ИСТОРИЯ
@@ -40,7 +45,7 @@ const { selectedTabName } = storeToRefs(useTabsStore());
         СТАТИСТ
       </div>
       <Tabs class="game-main__field-tabs" />
-      <Info class="game-main__field-info" />
+      <InfoPanel class="game-main__field-info" />
     </div>
   </div>
 </template>
@@ -104,6 +109,19 @@ const { selectedTabName } = storeToRefs(useTabsStore());
     position: absolute;
     left: 596px;
     top: 6px;
+  }
+
+  &__video-tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 529px;
+    height: 327px;
+    margin-right: 5px;
+
+    &-img {
+      width: 80%;
+    }
   }
 }
 </style>
