@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { getImgUrl } from '../utils';
 
 const items = [
@@ -24,8 +25,10 @@ const items = [
   },
 ];
 
-const expandTable = () => {
-  console.log('expandTable');
+const isTableExpanded = ref(true);
+
+const toggleTable = () => {
+  isTableExpanded.value = !isTableExpanded.value;
 };
 </script>
 
@@ -47,7 +50,7 @@ const expandTable = () => {
         <img class="info-panel__table-img" :src="getImgUrl('table-header.png')" alt="Header Image">
         <p class="info-panel__table-title">ИСТОРИЯ</p>
         <img class="info-panel__table-arrow" :src="getImgUrl('expand.png')" alt="Expand Image">
-        <div class="info-panel__table-click-area" @click="expandTable" />
+        <div class="info-panel__table-click-area" @click="toggleTable" />
       </div>
       <table class="info-panel__table-inner">
         <thead>
@@ -58,7 +61,7 @@ const expandTable = () => {
         </thead>
         <tbody>
           <tr
-            v-for="(item, index) in items"
+            v-for="(item, index) in (isTableExpanded ? items : [items[0]])"
             :key="index + 'tr'"
             :class="{ 
               'info-panel__table-odd-row': index % 2 === 0,
