@@ -21,14 +21,16 @@ watch(selectedTabName, (newTab, oldTab) => {
     const container = animatedContentRef.value;
 
     gsap.to(container, {
-      rotateX: 90,
-      duration: 0.1,
+      scaleY: 0,
+      opacity: 0,
+      transformOrigin: '50% 50%', // Центр элемента по вертикали
+      duration: 0.15,
       onComplete: () => {
-        // Меняем активный таб только после завершения первой анимации
+        // Меняем активный таб только после завершения анимации сжатия
         currentTab.value = newTab;
 
-        // Поворачиваем новый контент обратно
-        gsap.fromTo(container, { rotateX: -90 }, { rotateX: 0, duration: 0.1 });
+        // Анимация расширения нового контента по оси Y
+        gsap.fromTo(container, { scaleY: 0, opacity: 0 }, { scaleY: 1, opacity: 1, duration: 0.15 });
       }
     });
   }
@@ -61,7 +63,7 @@ watch(selectedTabName, (newTab, oldTab) => {
           />
         </div>
         <div v-if="currentTab === 'ИСТОРИЯ'" style="color: white;">
-          <Test />
+          ИСТОРИЯ
         </div>
         <div v-if="currentTab === 'СТАТИСТ'" class="game-main__statistics-tab">
           <p class="game-main__statistics-tab-title">Рейтинг выпадения шаров за последние 100 раундов</p>
@@ -119,7 +121,7 @@ watch(selectedTabName, (newTab, oldTab) => {
     position: relative;
     align-items: center;
     height: 327px;
-    perspective: 1000px; /* Перспектива для 3D-эффекта */
+    perspective: 1000px;
   }
 
   &__field-content {
@@ -129,6 +131,7 @@ watch(selectedTabName, (newTab, oldTab) => {
     justify-content: center;
     align-items: center;
     position: relative;
+    transform-origin: 50% 50%; /* Центр элемента по вертикали */
   }
 
   &__field-cards {

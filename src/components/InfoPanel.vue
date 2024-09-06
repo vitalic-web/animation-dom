@@ -25,7 +25,6 @@ const toggleTable = () => {
 };
 
 const toggleTable2 = () => {
-  console.log('toggleTable2');
 };
 
 const toggleVisibility = () => {
