@@ -99,12 +99,14 @@ const toggleVisibility = () => {
           alt="Arrow2 Image"
         >
         <div class="info-panel__table-click-area" @click="toggleTable2" />
-        <img
-          class="info-panel__table-eye"
-          :src="getImgUrl(isVisible ? 'eye-icon-min.png' : 'eye-closed-icon-min.png')"
-          alt="Eye Icon"
-          @click="toggleVisibility"
-        >
+        <div class="info-panel__table-img-container">
+          <img
+            class="info-panel__table-eye"
+            :src="getImgUrl(isVisible ? 'eye-icon-min.png' : 'eye-closed-icon-min.png')"
+            alt="Eye Icon"
+            @click="toggleVisibility"
+          >
+        </div>
       </div>
       <div class="info-panel__table-inner">
         <table>
@@ -229,15 +231,26 @@ const toggleVisibility = () => {
       }
     }
 
-    &-eye {
+    &-img-container {
       position: absolute;
-      top: 4px;
+      top: 3px;
       right: 101px;
       width: 21px;
+      height: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden; 
 
       &:hover {
         cursor: pointer;
       }
+    }
+
+    &-eye {    
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
     }
 
     &-title {
