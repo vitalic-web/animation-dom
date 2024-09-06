@@ -3,6 +3,7 @@ import KenoAnimation from '../animations/KenoAnimation.vue';
 import BallsAnimation from '../animations/BallsAnimation.vue';
 import TimerBarAnimation from '../animations/TimerBarAnimation.vue';
 import CardsLIst from './CardsList.vue';
+import Statistics from './Statistics.vue';
 import Tabs from './Tabs.vue';
 import InfoPanel from './InfoPanel.vue';
 import { storeToRefs } from 'pinia';
@@ -41,8 +42,9 @@ const { selectedTabName } = storeToRefs(useTabsStore());
       <div v-if="selectedTabName === 'ИСТОРИЯ'" style="color: white;">
         ИСТОРИЯ
       </div>
-      <div v-if="selectedTabName === 'СТАТИСТ'" style="color: white;">
-        СТАТИСТ
+      <div v-if="selectedTabName === 'СТАТИСТ'" class="game-main__statistics-tab">
+        <p class="game-main__statistics-tab-title">Рейтинг выпадения шаров за последние 100 раундов</p>
+        <Statistics />
       </div>
       <Tabs class="game-main__field-tabs" />
       <InfoPanel class="game-main__field-info" />
@@ -93,6 +95,8 @@ const { selectedTabName } = storeToRefs(useTabsStore());
     display: flex;
     margin: -4px 0 0 25px;
     position: relative;
+    align-items: center;
+    height: 327px;
   }
 
   &__field-cards {
@@ -121,6 +125,27 @@ const { selectedTabName } = storeToRefs(useTabsStore());
 
     &-img {
       width: 80%;
+    }
+  }
+
+  &__statistics-tab {
+    width: 529px;
+    height: 322px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+    box-sizing: border-box;
+    padding: 5px;
+
+    &-title {
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 15.5px;
+      font-weight: 400;
     }
   }
 }
