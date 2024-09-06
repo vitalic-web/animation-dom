@@ -7,7 +7,12 @@ const props = defineProps({
     type: Number,
     required: true,
     default: 0,
-  }
+  },
+  isCold: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
 });
 
 const { targetPercentage } = toRefs(props);
@@ -46,16 +51,15 @@ onMounted(() => {
 
 <template>
   <div class="progress-bar-container">
-    <div class="progress-bar" ref="progressBarRef"></div>
-    <div class="progress-text">{{ percentage }}%</div>
+    <div :class="['progress-bar', { 'progress-bar-cold': isCold }]" ref="progressBarRef" />
+    <div :class="['progress-text', { 'progress-text-cold': isCold }]">{{ percentage }}%</div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .progress-bar-container {
-  width: 50px;
-  height: 150px;
-  border: 1px solid #000;
+  width: 75px;
+  height: 90px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -66,16 +70,25 @@ onMounted(() => {
 .progress-bar {
   width: 100%;
   height: 0%;
-  background-color: #3498db;
+  background: #c30000;
   position: absolute;
   bottom: 0;
   left: 0;
+
+  &-cold {
+    background: #296fd5;
+  }
 }
 
 .progress-text {
   position: relative;
   z-index: 1;
   font-size: 24px;
-  color: #000;
+  color: #fe801b;
+  font-weight: 400;
+
+  &-cold {
+    color: #9bcbff;
+  }
 }
 </style>

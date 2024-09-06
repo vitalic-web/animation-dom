@@ -2,10 +2,12 @@ const getImgUrl = (imgName: string): string => {
   return new URL(`./assets/pictures/${imgName}`, import.meta.url).href;
 };
 
+const getRandomNumber = (maxNums: number): number => Math.floor(Math.random() * maxNums) + 1;
+
 const generateUniqueRandomNumbers = (count: number, max: number): number[] => {
   const numbers = new Set<number>();
   while (numbers.size < count) {
-    const randomNum = Math.floor(Math.random() * max) + 1;
+    const randomNum = getRandomNumber(max);
     numbers.add(randomNum);
   }
   return Array.from(numbers);
@@ -19,6 +21,7 @@ const formatTime = (time: number) => {
 
 export {
   getImgUrl,
+  getRandomNumber,
   generateUniqueRandomNumbers,
   formatTime,
 }
